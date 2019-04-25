@@ -1,28 +1,29 @@
 package util;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertEquals;
 
-class UtilsTest {
+public class UtilsTest {
 
     private Utils utils = new Utils();
 
-    @Test
+    public UtilsTest() {
+    }
+
+    @Test(expected = NullPointerException.class)
     @SuppressWarnings("all")
-    void testConcatenateNulls() {
-        assertThrows(NullPointerException.class, () -> {
-            String a = null;
-            String b = null;
-            utils.concatenateWords(a, b);
-        });
+    public void testConcatenateNulls() {
+        String a = null;
+        String b = null;
+        utils.concatenateWords(a, b);
     }
 
     @Test
-    void testConcatenateEmptyStrings() {
+    public void testConcatenateEmptyStrings() {
         String a = "";
         String b = "";
         String expResult = "";
@@ -31,7 +32,7 @@ class UtilsTest {
     }
 
     @Test
-    void testConcatenateNonLatin() {
+    public void testConcatenateNonLatin() {
         String a = "Нон";
         String b = "Латин";
         String expResult = "НонЛатин";
@@ -39,8 +40,9 @@ class UtilsTest {
         assertEquals(expResult, result);
     }
 
+    @Ignore
     @Test
-    void testComputeFactorial() {
+    public void testComputeFactorial() {
         long a = 145;
         BigInteger expResult = new BigInteger(
                 "804792605747199194484902925779806277109997439007500616344745281047115412373646521410850481879839" +
@@ -51,5 +53,10 @@ class UtilsTest {
         assertEquals(expResult, result);
     }
 
+    @Test (timeout = 600)
+    public void textComputeFactorialTimeout() {
+        long a = (long) (Math.random() * 100000);
+        utils.computeFactorial(a);
 
+    }
 }
